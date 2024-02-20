@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Real-time CPU Usage Chart</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+<canvas id="cpuChart" width="400" height="200"></canvas>
+
+<script>
+  const ctx = document.getElementById('cpuChart').getContext('2d');
+  const cpuChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: [],
+      datasets: [{
+        label: 'CPU Usage',
+        data: [],
+        borderColor: 'blue',
+        borderWidth: 1,
+        fill: false
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      scales: {
+        x: {
+          type: 'time',
+          time: {
+            unit: 'second',
+            displayFormats: {
+              second: 'h:mm:ss a'
+            }
+          }
+        },
+        y: {
+          title: {
+            display: true,
+            text: 'CPU Usage (%)'
+          }
+        }
+      }
+    }
+  });
+
+  const eventSource = new EventSource('http://127.0.0.1:5000/chart-data');
+  eventSource.onmessage = function(event) {
+    const data = JSON.parse(event.data);
+    cpuChart.data.labels.push(data.time);
+    cpuChart.data.datasets[0].data.push(data.value);
+    if (cpuChart.data.labels.length > 20) {
+      cpuChart.data.labels.shift();
+      cpuChart.data.datasets[0].data.shift();
+    }
+    cpuChart.update();
+  };
+</script>
+</body>
+</html>
