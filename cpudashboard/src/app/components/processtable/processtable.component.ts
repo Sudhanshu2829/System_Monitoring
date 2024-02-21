@@ -21,7 +21,7 @@ export class ProcesstableComponent implements OnInit{
     this.getMethod();
   }
   public getMethod(){
-    this.http.get("http://127.0.0.1:8000/mongoprocess").subscribe((data)=>{
+    this.http.get("http://127.0.0.1:8000/process").subscribe((data)=>{
       //console.table(data);
       this.getJsonValue=data;
       this.dataSource=data;

@@ -10,6 +10,6 @@ export class MainService {
   constructor(private http: HttpClient) { }
 
   getSystemInfo(): Observable<any> {
-    return this.http.get('http://127.0.0.1:8000/');
+    return this.http.get('http://127.0.0.1:8000/system');
   }
 }

@@ -12,6 +12,6 @@ import { faDashboard,faLocation } from '@fortawesome/free-solid-svg-icons';
 })
 export class SideNavbarComponent {
   faDashboard = faDashboard;
-  faLocation=faLocation;
+
 
 }

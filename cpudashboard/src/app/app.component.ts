@@ -4,7 +4,6 @@ import {HeaderComponent} from "./components/header/header.component";
 import {SideNavbarComponent} from "./components/side-navbar/side-navbar.component";
 import {MainComponent} from "./components/main/main.component";
 import{FontAwesomeModule} from "@fortawesome/angular-fontawesome";
-import {HttpClientModule} from "@angular/common/http";
 
 @Component({
   selector: 'app-root',
