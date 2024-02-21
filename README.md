@@ -7,10 +7,14 @@
 </p>
 
 <p>
-    <img src="https://github.com/Sudhanshu2829/System_Monitoring/assets/84763877/f8af420c-be96-4e41-8007-5638b6e0b6e9" alt="dashboard"/>
+    <img src="https://github.com/Sudhanshu2829/System_Monitoring/assets/84763877/8347a905-06f4-4440-b09d-496f86e1703a" alt="dashboard"/>
+    <img src="https://github.com/Sudhanshu2829/System_Monitoring/assets/84763877/621c09b3-34b3-49fc-a8e4-3a6b687a1b2a" alt="process"/>
+
 </p>
 <!--p align="center">
     <img src="" alt="dashboard"/>
+     <img src="" alt="process"/>
+
 </p-->
 
 ## Introduction
