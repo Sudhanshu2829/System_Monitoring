@@ -21,12 +21,12 @@
 
   <!-- Symbol Column -->
   <ng-container matColumnDef="cpu_times_user">
-    <th mat-header-cell *matHeaderCellDef> CPU USER </th>
+    <th mat-header-cell *matHeaderCellDef> CPU Time <br>(User Mode) </th>
     <td mat-cell *matCellDef="let element"> {{element.cpu_times_user}} </td>
   </ng-container>
 
   <ng-container matColumnDef="cpu_times_system">
-    <th mat-header-cell *matHeaderCellDef> CPU SYSTEM </th>
+    <th mat-header-cell *matHeaderCellDef> CPU Time (Kernel Mode) </th>
     <td mat-cell *matCellDef="let element"> {{element.cpu_times_system}} </td>
   </ng-container>
 
@@ -46,12 +46,11 @@
   </ng-container>
 
 
-  <!-- KILL Button Column -->
   <ng-container matColumnDef="kill">
     <th mat-header-cell *matHeaderCellDef> Actions </th>
-    <td mat-cell *matCellDef="let element">
-      <button mat-button color="warn">KILL</button>
-    </td>
+      <td mat-cell *matCellDef="let element">
+        <button mat-raised-button color="primary" (click)="killProcess(element.pid)">KILL</button>
+      </td>
   </ng-container>
 
   <tr mat-header-row *matHeaderRowDef="displayColumn"></tr>

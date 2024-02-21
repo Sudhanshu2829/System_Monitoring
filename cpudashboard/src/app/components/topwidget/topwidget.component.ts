@@ -22,7 +22,7 @@ export class TopwidgetComponent implements OnInit {
   memoryUsage!: number;
   diskUsage!: number;
   process!: number;
-  threads!: number;
+  CPU_cores!: number;
 
   ngOnInit(): void {
     this.getSystemInfo()
@@ -33,7 +33,7 @@ export class TopwidgetComponent implements OnInit {
       this.memoryUsage = data[0];
       this.diskUsage = data[1];
       this.process = data[2];
-      this.threads = data[3];
+      this.CPU_cores = data[3];
     });
 
   }

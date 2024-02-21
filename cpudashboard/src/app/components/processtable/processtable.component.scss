@@ -6,3 +6,8 @@
 .mat-mdc-cell{
   font-size:18px;
 }
+.mat-mdc-raised-button:not(:disabled) {
+  color: white;
+  background-color: red;
+  box-shadow: red;
+}

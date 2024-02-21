@@ -1,6 +1,7 @@
 from datetime import datetime
+import os
 
-from fastapi import FastAPI, BackgroundTasks
+from fastapi import FastAPI, HTTPException
 import psutil
 import time
 import asyncio
@@ -22,6 +23,7 @@ origins = [
     "http://localhost",
     "http://localhost:3000",
     "http://localhost:8080",
+    "http://localhost:4200",
 ]
 
 app.add_middleware(
@@ -34,12 +36,13 @@ app.add_middleware(
 
 
 def get_cpu_data():
-    items=[]
+    items = []
     while True:
         cpu_percent = psutil.cpu_percent()
         current_time = datetime.now().strftime("%H:%M:%S")
         items.append({'time': current_time, 'cpu_percent': cpu_percent})
         time.sleep(5)
+
 
 def update_or_add(data):
     pid = data["pid"]
@@ -61,8 +64,8 @@ async def root():
     memory_usage = psutil.virtual_memory().percent
     disk_usage = psutil.disk_usage('/').percent
     process = process_collection.count_documents({})
-    total_threads = psutil.cpu_count(logical=True)
-    items = [memory_usage, disk_usage, process, total_threads]
+    CPU_cores = psutil.cpu_count(logical=True)
+    items = [memory_usage, disk_usage, process, CPU_cores]
     return items
 
 
@@ -76,6 +79,20 @@ async def mongoprocess():
         items.append(x)
 
     return items
+
+
+@app.delete("/process/{pid}")
+async def kill_process(pid: int):
+    try:
+        process_collection.delete_one({"pid": pid})
+        print("Process with PID:", pid, "is terminated")
+        os.kill(pid, 9) # Terminate the process
+        return {"message": f"Process with PID {pid} killed successfully"}
+    except psutil.NoSuchProcess:
+        print()
+        raise HTTPException(status_code=404, detail=f"Process with PID {pid} not found")
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
 
 
 @app.get("/process")
@@ -103,6 +120,7 @@ async def process():
         items.append(process_info)
 
     return items
+
 
 @app.get("/cpu-data")
 async def cpu_data():
